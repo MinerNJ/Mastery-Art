@@ -1,0 +1,1 @@
+{"version":3,"sources":["../CSS/index.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"CSS.a66b381b.css","sourceRoot":"..\\resources\\static\\HTML","sourcesContent":["*{\r\n    font-family: 'Roboto', sans-serif;\r\n    margin: 0;\r\n    padding: 0;\r\n  }\r\n\r\n  ul{\r\n    list-style: none;\r\n  }"]}
