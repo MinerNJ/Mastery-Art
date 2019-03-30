@@ -171,6 +171,17 @@ var _default = {
   postRequest: postRequest
 };
 exports.default = _default;
+},{}],"../JS/components/Nav.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Nav;
+
+function Nav() {
+  return "\n    \n    <div>\n        <h1>Local Art</h1>\n    </div>\n    <nav>\n        <button class=\"view__all-artists button\">Artists</button>\n        <button class=\"view__all-mediums button\">Mediums</button>\n        <button class=\"view__all-art button\">Art</button>\n    </nav>\n    ";
+}
 },{}],"../JS/components/Artists.js":[function(require,module,exports) {
 "use strict";
 
@@ -181,8 +192,34 @@ exports.default = Artists;
 
 function Artists(artists) {
   return "\n        <ul class=\"artists\">\n            ".concat(artists.map(function (artist) {
-    return "\n                    <li class=\"artist\">\n                        <h3 class=\"artist__artistName\" id=\"".concat(artist.id, "\">").concat(artist.artistName, "</h3>                     \n                    </li>\n                    ");
+    return "\n                    <li>\n                        <h3 class=\"artist__artistName\" id=\"".concat(artist.id, "\">").concat(artist.artistName, "</h3>                     \n                    </li>\n                    ");
   }).join(''), "\n        </ul>\n        <section class=\"add__artist\">\n            <input type=\"text\" class=\"add__artistName\" placeholder=\"Artist Name\">\n            <input type=\"text\" class=\"add__artistImage\" placeholder=\"Image URL\">\n            <button class=\"add__artist__button\">Add Artist</button>\n        </section>\n       ");
+}
+},{}],"../JS/components/Mediums.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Mediums;
+
+function Mediums(mediums) {
+  return "\n        <ul>\n            ".concat(mediums.map(function (medium) {
+    return "\n                    <li>\n                        <h3 id=\"".concat(medium.id, "\">").concat(medium.mediumName, "</h3>                     \n                    </li>\n                    ");
+  }).join(''), "\n        </ul>\n        <section class=\"add__medium\">\n            <input type=\"text\" class=\"add__mediumName\" placeholder=\"Medium Type\">\n            <button class=\"add__medium__button\">Add Medium</button>\n        </section>\n       ");
+}
+},{}],"../JS/components/Art.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Art;
+
+function Art(arts) {
+  return "\n        <ul>\n            ".concat(arts.map(function (art) {
+    return "\n                    <li>\n                        <h3 id=\"".concat(art.id, "\">").concat(art.artTitle, "</h3>                     \n                    </li>\n                    ");
+  }).join(''), "\n        </ul>\n        <section class=\"add__art\">\n            <input type=\"text\" class=\"add__artName\" placeholder=\"Art Type\">\n            <button class=\"add__medium__button\">Add Art</button>\n        </section>\n       ");
 }
 },{}],"../JS/app.js":[function(require,module,exports) {
 "use strict";
@@ -191,36 +228,81 @@ var _eventsActions = _interopRequireDefault(require("./utils/events/events-actio
 
 var _apiActions = _interopRequireDefault(require("./utils/api/api-actions"));
 
+var _Nav = _interopRequireDefault(require("./components/Nav"));
+
 var _Artists = _interopRequireDefault(require("./components/Artists"));
+
+var _Mediums = _interopRequireDefault(require("./components/Mediums"));
+
+var _Art = _interopRequireDefault(require("./components/Art"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// nav()
-main(); // function nav() {
-//     getNavContext().innerHTML = nav()
-//     navArtists()
-// 	// navMediums()
-//     // navArt() 
-// }
-// All Nav functions will live here
+nav(); // main()
 
-function main() {
-  _apiActions.default.getRequest('http://localhost:8080/artists', function (artists) {
-    getAppContext().innerHTML = (0, _Artists.default)(artists);
-  });
-
+function nav() {
+  getNavContext().innerHTML = (0, _Nav.default)();
   viewAllArtists();
-}
+  viewAllMediums();
+  viewAllArt(); // navArtists()
+  // navMediums()
+  // navArt() 
+} // function main() {
+//     api.getRequest('http://localhost:8080/artists', artists => {
+//       getAppContext().innerHTML = Artists(artists);
+//     })
+//     viewAllArtists()
+//     viewAllMediums()
+// }
+
 
 function viewAllArtists() {
-  _eventsActions.default.on(getAppContext(), 'click', function () {
-    if (event.target.classList.contains('view__all-Artists')) {
-      _apiActions.default.getRequest("http://localhost:8080/artists", function (artists) {
-        getAppContext().innerHTML = (0, _Artists.default)(artists);
-      });
-    }
+  var artistButton = document.querySelector('.view__all-artists');
+
+  _eventsActions.default.on(artistButton, 'click', function () {
+    _apiActions.default.getRequest("http://localhost:8080/artists", function (artists) {
+      getAppContext().innerHTML = (0, _Artists.default)(artists);
+    });
   });
-} // function navMediums() {
+}
+
+function viewAllMediums() {
+  var mediumButton = document.querySelector('.view__all-mediums');
+
+  _eventsActions.default.on(mediumButton, 'click', function () {
+    _apiActions.default.getRequest('http://localhost:8080/mediums', function (mediums) {
+      getAppContext().innerHTML = (0, _Mediums.default)(mediums);
+    });
+  });
+}
+
+function viewAllArt() {
+  var artButton = document.querySelector('.view__all-art');
+
+  _eventsActions.default.on(artButton, 'click', function () {
+    _apiActions.default.getRequest('http://localhost:8080/art', function (art) {
+      getAppContext().innerHTML = (0, _Art.default)(art);
+    });
+  });
+} // function viewAllArtists() {
+//     events.on(getAppContext(), 'click', () => {
+//           if(event.target.classList.contains('view__all-artists')) {
+//               api.getRequest(`http://localhost:8080/artists`, artists => {
+//                   getAppContext().innerHTML = Artists(artists)
+//               })
+//           }
+//       })
+//   }
+// function viewAllMediums(){
+//     events.on(getAppContext(), 'click', () => {
+//         if(event.target.classList.contains('view__all-mediums')){
+//             api.getRequest(`http://localhost:8080/mediums`, mediums => {
+//                 getAppContext().innerHTML = Mediums(mediums)
+//             } )
+//         }
+//     })
+// }
+// function navMediums() {
 // 	const mediumButton = document.querySelector('.nav__mediums');
 // 	events.on(mediumButton, 'click', ()=> {
 // 		api.getRequest('/mediums', mediums => {
@@ -245,7 +327,7 @@ function getAppContext() {
 function getNavContext() {
   return document.querySelector("#nav");
 }
-},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Artists":"../JS/components/Artists.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Nav":"../JS/components/Nav.js","./components/Artists":"../JS/components/Artists.js","./components/Mediums":"../JS/components/Mediums.js","./components/Art":"../JS/components/Art.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -273,7 +355,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54015" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56003" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -3,7 +3,7 @@ export default function Artists(artists) {
         <ul class="artists">
             ${artists.map(artist => {
                 return `
-                    <li class="artist">
+                    <li>
                         <h3 class="artist__artistName" id="${artist.id}">${artist.artistName}</h3>                     
                     </li>
                     `
