@@ -3,26 +3,37 @@ import api from './utils/api/api-actions'
 
 import Artists from './components/Artists'
 
+// nav()
 main()
 
-function main() {
-	api.getRequest('http://localhost:8080/artists', artists => {
-        getAppContext().innerHTML = Artists(artists)
-    })
-    navArtists()
-	// navMediums()
-    // navArt() 
-}
+
+// function nav() {
+//     getNavContext().innerHTML = nav()
+//     navArtists()
+// 	// navMediums()
+//     // navArt() 
+// }
 
 // All Nav functions will live here
-function navArtists() {
-	const artistButton = document.querySelector('.nav__artists');
-	events.on(artistButton, 'click', ()=> {
-		api.getRequest('/artists', artists => { 
-			getAppContext().innerHTML = Artists(artists)
-		})
-	})
+
+function main() {
+    api.getRequest('http://localhost:8080/artists', artists => {
+      getAppContext().innerHTML = Artists(artists);
+    })
+
+    viewAllArtists()
 }
+
+function viewAllArtists() {
+    events.on(getAppContext(), 'click', () => {
+          if(event.target.classList.contains('view__all-Artists')) {
+              api.getRequest(`http://localhost:8080/artists`, artists => {
+                  getAppContext().innerHTML = Artists(artists)
+              })
+          }
+      })
+  }
+
 
 // function navMediums() {
 // 	const mediumButton = document.querySelector('.nav__mediums');
@@ -41,3 +52,11 @@ function navArtists() {
 // 		})
 // 	})
 // }
+
+function getAppContext() {
+	return document.querySelector('#app')
+}
+
+function getNavContext() {
+    return document.querySelector("#nav")
+  }

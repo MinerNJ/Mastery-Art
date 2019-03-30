@@ -30,17 +30,17 @@ public class ArtistController {
 		return (Collection<Artist>) artistRepo.findAll();
 	}
 	
-	@GetMapping("/artists/{id}")
+	@GetMapping("/{id}")
 	public Artist getArtist(@PathVariable Long id) {
 		return artistRepo.findById(id).get(); 
 	}
 	
-	@PostMapping("/artists/add")
-	public Collection<Artist> addArtist(@RequestBody String body) throws JSONException{
-     JSONObject json = new JSONObject(body);
-     String artistName = json.getString("artistName");
-     String artistImage = json.getString("artistImage");
-     artistRepo.save(new Artist(artistName, artistImage));
-     return (Collection<Artist>) artistRepo.findAll();
-	}
+//	@PostMapping("/artists/add")
+//	public Collection<Artist> addArtist(@RequestBody String body) throws JSONException{
+//     JSONObject json = new JSONObject(body);
+//     String artistName = json.getString("artistName");
+//     String artistImage = json.getString("artistImage");
+//     artistRepo.save(new Artist(artistName, artistImage));
+//     return (Collection<Artist>) artistRepo.findAll();
+//	}
 }
