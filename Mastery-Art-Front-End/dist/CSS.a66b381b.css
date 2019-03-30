@@ -8,4 +8,9 @@
     list-style: none;
   }
 
+.main__container{
+    display: flex;
+}
+
+
 /*# sourceMappingURL=/CSS.a66b381b.css.map */

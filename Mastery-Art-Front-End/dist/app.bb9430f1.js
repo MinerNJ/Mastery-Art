@@ -192,8 +192,19 @@ exports.default = Artists;
 
 function Artists(artists) {
   return "\n        <ul class=\"artists\">\n            ".concat(artists.map(function (artist) {
-    return "\n                    <li>\n                        <h3 class=\"artist__artistName\" id=\"".concat(artist.id, "\">").concat(artist.artistName, "</h3>                     \n                    </li>\n                    ");
+    return "\n                    <li>\n                        <h3 class=\"artist__artistName\" id=\"".concat(artist.id, "\">").concat(artist.artistName, "</h3>\n                        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n                     \n                    </li>\n                    ");
   }).join(''), "\n        </ul>\n        <section class=\"add__artist\">\n            <input type=\"text\" class=\"add__artistName\" placeholder=\"Artist Name\">\n            <input type=\"text\" class=\"add__artistImage\" placeholder=\"Image URL\">\n            <button class=\"add__artist__button\">Add Artist</button>\n        </section>\n       ");
+}
+},{}],"../JS/components/Artist.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Artist;
+
+function Artist(artist) {
+  return "\n    <div class=\"artist__container\">\n        <h3 class=\"artist__artistName title\">Artist: ".concat(artist.artistName, "</h3>\n        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n    </div>\n        ");
 }
 },{}],"../JS/components/Mediums.js":[function(require,module,exports) {
 "use strict";
@@ -205,8 +216,19 @@ exports.default = Mediums;
 
 function Mediums(mediums) {
   return "\n        <ul>\n            ".concat(mediums.map(function (medium) {
-    return "\n                    <li>\n                        <h3 id=\"".concat(medium.id, "\">").concat(medium.mediumName, "</h3>                     \n                    </li>\n                    ");
+    return "\n                    <li>\n                        <h3 class=\"medium__mediumName\" id=\"".concat(medium.id, "\">").concat(medium.mediumName, "</h3>                     \n                    </li>\n                    ");
   }).join(''), "\n        </ul>\n        <section class=\"add__medium\">\n            <input type=\"text\" class=\"add__mediumName\" placeholder=\"Medium Type\">\n            <button class=\"add__medium__button\">Add Medium</button>\n        </section>\n       ");
+}
+},{}],"../JS/components/Medium.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Medium;
+
+function Medium(medium) {
+  return "\n    <div class=\"medium__container\">\n        <h3 title\">Medium: ".concat(medium.mediumName, "</h3>\n    </div>\n        ");
 }
 },{}],"../JS/components/Art.js":[function(require,module,exports) {
 "use strict";
@@ -216,10 +238,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Art;
 
-function Art(arts) {
-  return "\n        <ul>\n            ".concat(arts.map(function (art) {
-    return "\n                    <li>\n                        <h3 id=\"".concat(art.id, "\">").concat(art.artTitle, "</h3>                     \n                    </li>\n                    ");
+function Art(art) {
+  return "\n        <ul>\n            ".concat(art.map(function (art) {
+    return "\n                    <li>\n                        <h3 class=\"art__singleArtPiece\" id=\"".concat(art.id, "\">").concat(art.artTitle, "</h3> \n                        <img src=\"").concat(art.artImage, "\" class=\"art__image\">                    \n                    </li>\n                    ");
   }).join(''), "\n        </ul>\n        <section class=\"add__art\">\n            <input type=\"text\" class=\"add__artName\" placeholder=\"Art Type\">\n            <button class=\"add__medium__button\">Add Art</button>\n        </section>\n       ");
+}
+},{}],"../JS/components/ArtPiece.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ArtPiece;
+
+function ArtPiece(art) {
+  return "\n    <div class=\"artPiece__container\">\n        <h3 title\">Art: ".concat(art.artTitle, "</h3>\n        <img src=\"").concat(art.artImage, "\" class=\"artPiece__image\">\n    </div>\n        ");
 }
 },{}],"../JS/app.js":[function(require,module,exports) {
 "use strict";
@@ -232,89 +265,100 @@ var _Nav = _interopRequireDefault(require("./components/Nav"));
 
 var _Artists = _interopRequireDefault(require("./components/Artists"));
 
+var _Artist = _interopRequireDefault(require("./components/Artist"));
+
 var _Mediums = _interopRequireDefault(require("./components/Mediums"));
+
+var _Medium = _interopRequireDefault(require("./components/Medium"));
 
 var _Art = _interopRequireDefault(require("./components/Art"));
 
+var _ArtPiece = _interopRequireDefault(require("./components/ArtPiece"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-nav(); // main()
+nav();
+main();
 
 function nav() {
   getNavContext().innerHTML = (0, _Nav.default)();
-  viewAllArtists();
-  viewAllMediums();
-  viewAllArt(); // navArtists()
-  // navMediums()
-  // navArt() 
-} // function main() {
-//     api.getRequest('http://localhost:8080/artists', artists => {
-//       getAppContext().innerHTML = Artists(artists);
-//     })
-//     viewAllArtists()
-//     viewAllMediums()
-// }
+  navArtists();
+  navMediums();
+  navArt();
+  viewSingleArtist();
+  viewSingleMedium();
+  viewSingleArtPiece();
+}
 
-
-function viewAllArtists() {
-  var artistButton = document.querySelector('.view__all-artists');
-
-  _eventsActions.default.on(artistButton, 'click', function () {
-    _apiActions.default.getRequest("http://localhost:8080/artists", function (artists) {
-      getAppContext().innerHTML = (0, _Artists.default)(artists);
-    });
+function main() {
+  _apiActions.default.getRequest('http://localhost:8080/art', function (art) {
+    getAppContext().innerHTML = (0, _Art.default)(art);
   });
 }
 
-function viewAllMediums() {
-  var mediumButton = document.querySelector('.view__all-mediums');
-
-  _eventsActions.default.on(mediumButton, 'click', function () {
-    _apiActions.default.getRequest('http://localhost:8080/mediums', function (mediums) {
-      getAppContext().innerHTML = (0, _Mediums.default)(mediums);
-    });
+function navArtists() {
+  _eventsActions.default.on(getNavContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-artists')) {
+      _apiActions.default.getRequest("http://localhost:8080/artists", function (artists) {
+        getAppContext().innerHTML = (0, _Artists.default)(artists);
+      });
+    }
   });
 }
 
-function viewAllArt() {
-  var artButton = document.querySelector('.view__all-art');
-
-  _eventsActions.default.on(artButton, 'click', function () {
-    _apiActions.default.getRequest('http://localhost:8080/art', function (art) {
-      getAppContext().innerHTML = (0, _Art.default)(art);
-    });
+function navMediums() {
+  _eventsActions.default.on(getNavContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-mediums')) {
+      _apiActions.default.getRequest("http://localhost:8080/mediums", function (mediums) {
+        getAppContext().innerHTML = (0, _Mediums.default)(mediums);
+      });
+    }
   });
-} // function viewAllArtists() {
-//     events.on(getAppContext(), 'click', () => {
-//           if(event.target.classList.contains('view__all-artists')) {
-//               api.getRequest(`http://localhost:8080/artists`, artists => {
-//                   getAppContext().innerHTML = Artists(artists)
-//               })
-//           }
-//       })
-//   }
-// function viewAllMediums(){
-//     events.on(getAppContext(), 'click', () => {
-//         if(event.target.classList.contains('view__all-mediums')){
-//             api.getRequest(`http://localhost:8080/mediums`, mediums => {
-//                 getAppContext().innerHTML = Mediums(mediums)
-//             } )
-//         }
-//     })
-// }
-// function navMediums() {
+}
+
+function navArt() {
+  _eventsActions.default.on(getNavContext(), 'click', function () {
+    if (event.target.classList.contains('view__all-art')) {
+      _apiActions.default.getRequest("http://localhost:8080/art", function (art) {
+        getAppContext().innerHTML = (0, _Art.default)(art);
+      });
+    }
+  });
+}
+
+function viewSingleArtist() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('artist__artistName')) {
+      _apiActions.default.getRequest("http://localhost:8080/artists/".concat(event.target.id), function (artist) {
+        getAppContext().innerHTML = (0, _Artist.default)(artist);
+      });
+    }
+  });
+}
+
+function viewSingleMedium() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('medium__mediumName')) {
+      _apiActions.default.getRequest("http://localhost:8080/mediums/".concat(event.target.id), function (medium) {
+        getAppContext().innerHTML = (0, _Medium.default)(medium);
+      });
+    }
+  });
+}
+
+function viewSingleArtPiece() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('art__singleArtPiece')) {
+      _apiActions.default.getRequest("http://localhost:8080/art/".concat(event.target.id), function (art) {
+        getAppContext().innerHTML = (0, _ArtPiece.default)(art);
+      });
+    }
+  });
+} // function navMediums() {
 // 	const mediumButton = document.querySelector('.nav__mediums');
 // 	events.on(mediumButton, 'click', ()=> {
 // 		api.getRequest('/mediums', mediums => {
 // 			getAppContext().innerHTML = Mediums(mediums)
-// 		})
-// 	})
-// }
-// function NavArt() {
-// 	const artButton = document.querySelector('.nav__art');
-// 	events.on(artButton, 'click', ()=> {
-// 		api.getRequest('/art', art => {
-// 			getAppContext().innerHTML = Art(art)
 // 		})
 // 	})
 // }
@@ -327,7 +371,7 @@ function getAppContext() {
 function getNavContext() {
   return document.querySelector("#nav");
 }
-},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Nav":"../JS/components/Nav.js","./components/Artists":"../JS/components/Artists.js","./components/Mediums":"../JS/components/Mediums.js","./components/Art":"../JS/components/Art.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Nav":"../JS/components/Nav.js","./components/Artists":"../JS/components/Artists.js","./components/Artist":"../JS/components/Artist.js","./components/Mediums":"../JS/components/Mediums.js","./components/Medium":"../JS/components/Medium.js","./components/Art":"../JS/components/Art.js","./components/ArtPiece":"../JS/components/ArtPiece.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -355,7 +399,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56003" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62006" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

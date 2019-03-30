@@ -4,7 +4,7 @@ export default function Mediums(mediums) {
             ${mediums.map(medium => {
                 return `
                     <li>
-                        <h3 id="${medium.id}">${medium.mediumName}</h3>                     
+                        <h3 class="medium__mediumName" id="${medium.id}">${medium.mediumName}</h3>                     
                     </li>
                     `
             }).join('')}

@@ -1,10 +1,11 @@
-export default function Art(arts) {
+export default function Art(art) {
     return `
         <ul>
-            ${arts.map(art => {
+            ${art.map(art => {
                 return `
                     <li>
-                        <h3 id="${art.id}">${art.artTitle}</h3>                     
+                        <h3 class="art__singleArtPiece" id="${art.id}">${art.artTitle}</h3> 
+                        <img src="${art.artImage}" class="art__image">                    
                     </li>
                     `
             }).join('')}
