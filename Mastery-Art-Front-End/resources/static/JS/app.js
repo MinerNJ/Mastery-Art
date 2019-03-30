@@ -21,6 +21,7 @@ function nav() {
     viewSingleArtist()
     viewSingleMedium()
     viewSingleArtPiece()
+    addDescriptionToArt()
 }
 
 
@@ -92,14 +93,18 @@ function viewSingleArtPiece() {
         }
     })
 }
-// function navMediums() {
-// 	const mediumButton = document.querySelector('.nav__mediums');
-// 	events.on(mediumButton, 'click', ()=> {
-// 		api.getRequest('/mediums', mediums => {
-// 			getAppContext().innerHTML = Mediums(mediums)
-// 		})
-// 	})
-// }
+
+
+function addDescriptionToArt() {
+	events.on(getAppContext(), 'click', () => {
+		if (event.target.classList.contains('add__description__button')) {
+			const descriptionContent = document.querySelector('.add__descriptionContent').value
+			api.postRequest(`http://localhost:8080/descriptions/add/${event.target.id}`, {
+				descriptionContent: descriptionContent
+			}, (art) => getAppContext().innerHTML = ArtPiece(art))
+		}
+	})
+}
 
 
 function getAppContext() {

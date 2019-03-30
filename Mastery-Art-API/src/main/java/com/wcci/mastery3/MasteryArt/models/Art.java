@@ -3,14 +3,12 @@ package com.wcci.mastery3.MasteryArt.models;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Art {
@@ -20,6 +18,9 @@ public class Art {
 	private String artTitle;
 	@Lob
 	private String artImage;
+	@ElementCollection
+	@CollectionTable
+	private Collection<Description> descriptions;
 	
 	public Long getId() {
 		return id;
@@ -31,11 +32,20 @@ public class Art {
 		return artImage;
 	}
 	
+	public Collection<Description> getDescriptions() {
+		return descriptions;
+	}
+	
+	public void addDescription(Description descriptionToAdd) {
+		descriptions.add(descriptionToAdd);
+	}
+	
 	public Art() {}
 	
 	public Art(String artTitle, String artImage) {
 		this.artTitle = artTitle;
 		this.artImage = artImage;
+		this.descriptions = new ArrayList<Description>();
 	}
 	
 	

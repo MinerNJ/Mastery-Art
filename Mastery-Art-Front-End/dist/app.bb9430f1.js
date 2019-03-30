@@ -219,6 +219,19 @@ function Mediums(mediums) {
     return "\n                    <li>\n                        <h3 class=\"medium__mediumName\" id=\"".concat(medium.id, "\">").concat(medium.mediumName, "</h3>                     \n                    </li>\n                    ");
   }).join(''), "\n        </ul>\n        <section class=\"add__medium\">\n            <input type=\"text\" class=\"add__mediumName\" placeholder=\"Medium Type\">\n            <button class=\"add__medium__button\">Add Medium</button>\n        </section>\n       ");
 }
+},{}],"../JS/components/Description.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Description;
+
+function Description(descriptions) {
+  return descriptions.map(function (description) {
+    return "\n            <ul>\n                <li class=\"item\">".concat(description.descriptionContent, "</li>\n            </ul>\n            ");
+  }).join('');
+}
 },{}],"../JS/components/Medium.js":[function(require,module,exports) {
 "use strict";
 
@@ -227,10 +240,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Medium;
 
+var _Description = _interopRequireDefault(require("./Description"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function Medium(medium) {
   return "\n    <div class=\"medium__container\">\n        <h3 title\">Medium: ".concat(medium.mediumName, "</h3>\n    </div>\n        ");
 }
-},{}],"../JS/components/Art.js":[function(require,module,exports) {
+},{"./Description":"../JS/components/Description.js"}],"../JS/components/Art.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -251,10 +268,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ArtPiece;
 
+var _Description = _interopRequireDefault(require("./Description"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function ArtPiece(art) {
-  return "\n    <div class=\"artPiece__container\">\n        <h3 title\">Art: ".concat(art.artTitle, "</h3>\n        <img src=\"").concat(art.artImage, "\" class=\"artPiece__image\">\n    </div>\n        ");
+  return "\n    <div class=\"artPiece__container\">\n        <h3 title\">Art: ".concat(art.artTitle, "</h3>\n        <img src=\"").concat(art.artImage, "\" class=\"artPiece__image\">\n    </div>\n\n    <h3>Descriptions</h3>\n        <ul>\n            <li item\">").concat((0, _Description.default)(art.descriptions), "</li>\n        </ul>\n\n        <section class=\"add__description\">\n            <input type=\"text\" class=\"add__descriptionContent\" placeholder=\"Description here\">\n            <button class=\"add__description__button\" id=\"").concat(art.id, "\">Add Description</button>\n        </section>\n        ");
 }
-},{}],"../JS/app.js":[function(require,module,exports) {
+},{"./Description":"../JS/components/Description.js"}],"../JS/app.js":[function(require,module,exports) {
 "use strict";
 
 var _eventsActions = _interopRequireDefault(require("./utils/events/events-actions"));
@@ -288,6 +309,7 @@ function nav() {
   viewSingleArtist();
   viewSingleMedium();
   viewSingleArtPiece();
+  addDescriptionToArt();
 }
 
 function main() {
@@ -354,15 +376,21 @@ function viewSingleArtPiece() {
       });
     }
   });
-} // function navMediums() {
-// 	const mediumButton = document.querySelector('.nav__mediums');
-// 	events.on(mediumButton, 'click', ()=> {
-// 		api.getRequest('/mediums', mediums => {
-// 			getAppContext().innerHTML = Mediums(mediums)
-// 		})
-// 	})
-// }
+}
 
+function addDescriptionToArt() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('add__description__button')) {
+      var descriptionContent = document.querySelector('.add__descriptionContent').value;
+
+      _apiActions.default.postRequest("http://localhost:8080/descriptions/add/".concat(event.target.id), {
+        descriptionContent: descriptionContent
+      }, function (art) {
+        return getAppContext().innerHTML = (0, _ArtPiece.default)(art);
+      });
+    }
+  });
+}
 
 function getAppContext() {
   return document.querySelector('#app');
@@ -399,7 +427,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62006" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50897" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
