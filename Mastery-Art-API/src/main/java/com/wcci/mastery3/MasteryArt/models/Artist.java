@@ -7,8 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -20,6 +19,8 @@ public class Artist {
 	private String artistName;
 	@Lob
 	private String artistImage;
+	@ManyToMany
+	private Collection<Art> art;
 	
 	public Long getId() {
 		return id;
@@ -31,11 +32,23 @@ public class Artist {
 		return artistImage;
 	}
 	
+	public Collection<Art> getArt() {
+		return art;
+	}
+	
+	public void addGenreToGenres(Art artToAdd) {
+		art.add(artToAdd);
+	}	
+	
 	public Artist() {}
 	
 	public Artist(String artistName, String artistImage) {
 		this.artistName = artistName;
 		this.artistImage = artistImage;
+		this.art = new ArrayList<Art>();
+	}
+	public void addArtToArtist(Art artToAdd) {
+		art.add(artToAdd);
 	}
 	
 	

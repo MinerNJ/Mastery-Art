@@ -35,12 +35,12 @@ public class ArtistController {
 		return artistRepo.findById(id).get(); 
 	}
 	
-//	@PostMapping("/artists/add")
-//	public Collection<Artist> addArtist(@RequestBody String body) throws JSONException{
-//     JSONObject json = new JSONObject(body);
-//     String artistName = json.getString("artistName");
-//     String artistImage = json.getString("artistImage");
-//     artistRepo.save(new Artist(artistName, artistImage));
-//     return (Collection<Artist>) artistRepo.findAll();
-//	}
+	@PostMapping("/add/{id}")
+	public Collection<Artist> addArtist(@RequestBody String body) throws JSONException{
+     JSONObject json = new JSONObject(body);
+     String artistName = json.getString("artistName");
+     String artistImage = json.getString("artistImage");
+     artistRepo.save(new Artist(artistName, artistImage));
+     return (Collection<Artist>) artistRepo.findAll();
+	}
 }

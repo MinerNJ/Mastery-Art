@@ -1,3 +1,5 @@
+import Description from "./Description";
+
 export default function Medium(medium) {
     return `
     <div class="medium__container">

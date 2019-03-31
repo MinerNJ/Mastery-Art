@@ -3,6 +3,8 @@ package com.wcci.mastery3.MasteryArt.models;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,6 +33,5 @@ public class Medium {
 	public Medium(String mediumName) {
 		this.mediumName = mediumName;
 	}
-	
 
 }

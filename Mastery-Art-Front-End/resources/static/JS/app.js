@@ -21,6 +21,11 @@ function nav() {
     viewSingleArtist()
     viewSingleMedium()
     viewSingleArtPiece()
+    addDescriptionToArt()
+    addArtists()
+    addMediums()
+    addArt()
+    // addArtToArtist()
 }
 
 
@@ -92,12 +97,68 @@ function viewSingleArtPiece() {
         }
     })
 }
-// function navMediums() {
-// 	const mediumButton = document.querySelector('.nav__mediums');
-// 	events.on(mediumButton, 'click', ()=> {
-// 		api.getRequest('/mediums', mediums => {
-// 			getAppContext().innerHTML = Mediums(mediums)
-// 		})
+
+function addArtists() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__artist__button')) {
+            const artistName = document.querySelector('.add__artistName').value
+            const artistImage = document.querySelector('.add__artistImage').value
+            api.postRequest('http://localhost:8080/artists/add/${event.target.id}', {
+                artistName: artistName,
+                artistImage: artistImage
+            }, (artists) => getAppContext().innerHTML = Artists(artists))
+        }
+    })
+}
+
+function addMediums() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__medium__button')) {
+            const mediumName = document.querySelector('.add__mediumName').value
+            api.postRequest('http://localhost:8080/mediums/add/${event.target.id}', {
+                mediumName: mediumName,
+            }, (mediums) => getAppContext().innerHTML = Mediums(mediums))
+        }
+    })
+}
+
+function addArt() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__art__button')) {
+            const artTitle = document.querySelector('.add__artTitle').value
+            const artImage = document.querySelector('.add__artImage').value
+            api.postRequest('http://localhost:8080/art/add/${event.target.id}', {
+                artTitle: artTitle,
+                artImage: artImage
+            }, (art) => getAppContext().innerHTML = Art(art))
+        }
+    })
+}
+
+function addDescriptionToArt() {
+	events.on(getAppContext(), 'click', () => {
+		if (event.target.classList.contains('add__description__button')) {
+			const descriptionContent = document.querySelector('.add__descriptionContent').value
+			api.postRequest(`http://localhost:8080/descriptions/add/${event.target.id}`, {
+				descriptionContent: descriptionContent
+			}, (art) => getAppContext().innerHTML = ArtPiece(art))
+		}
+	})
+}
+
+
+// function addArtToArtist() {
+// 	events.on(getAppContext(), 'click', () => {
+// 		if (event.target.classList.contains('add__art__button')) {
+//             const artTitle = document.querySelector('.add__artTitle').value
+//             const artImage = document.querySelector('.add__artImage').value
+// 			api.postRequest(`http://localhost:8080/artists/art/add/${event.target.id}`, {
+//                 artTitle: artTitle,
+//                 artImage: artImage
+// 			}, (art) => {
+// 				getAppContext().innerHTML = Art(art)
+// 			})
+// 		}
 // 	})
 // }
 
