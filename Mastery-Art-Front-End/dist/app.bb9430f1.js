@@ -315,8 +315,8 @@ function nav() {
   viewSingleArtPiece();
   addDescriptionToArt();
   addArtists();
-  addArtToArtist();
   addMediums();
+  addArt(); // addArtToArtist()
 }
 
 function main() {
@@ -415,6 +415,22 @@ function addMediums() {
   });
 }
 
+function addArt() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('add__art__button')) {
+      var artTitle = document.querySelector('.add__artTitle').value;
+      var artImage = document.querySelector('.add__artImage').value;
+
+      _apiActions.default.postRequest('http://localhost:8080/art/add/${event.target.id}', {
+        artTitle: artTitle,
+        artImage: artImage
+      }, function (art) {
+        return getAppContext().innerHTML = (0, _Art.default)(art);
+      });
+    }
+  });
+}
+
 function addDescriptionToArt() {
   _eventsActions.default.on(getAppContext(), 'click', function () {
     if (event.target.classList.contains('add__description__button')) {
@@ -427,23 +443,21 @@ function addDescriptionToArt() {
       });
     }
   });
-}
+} // function addArtToArtist() {
+// 	events.on(getAppContext(), 'click', () => {
+// 		if (event.target.classList.contains('add__art__button')) {
+//             const artTitle = document.querySelector('.add__artTitle').value
+//             const artImage = document.querySelector('.add__artImage').value
+// 			api.postRequest(`http://localhost:8080/artists/art/add/${event.target.id}`, {
+//                 artTitle: artTitle,
+//                 artImage: artImage
+// 			}, (art) => {
+// 				getAppContext().innerHTML = Art(art)
+// 			})
+// 		}
+// 	})
+// }
 
-function addArtToArtist() {
-  _eventsActions.default.on(getAppContext(), 'click', function () {
-    if (event.target.classList.contains('add__art__button')) {
-      var artTitle = document.querySelector('.add__artTitle').value;
-      var artImage = document.querySelector('.add__artImage').value;
-
-      _apiActions.default.postRequest("http://localhost:8080/artists/art/add/".concat(event.target.id), {
-        artTitle: artTitle,
-        artImage: artImage
-      }, function (art) {
-        getAppContext().innerHTML = (0, _Art.default)(art);
-      });
-    }
-  });
-}
 
 function getAppContext() {
   return document.querySelector('#app');
@@ -480,7 +494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58457" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60198" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

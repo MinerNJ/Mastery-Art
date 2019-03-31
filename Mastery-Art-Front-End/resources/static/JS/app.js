@@ -23,8 +23,9 @@ function nav() {
     viewSingleArtPiece()
     addDescriptionToArt()
     addArtists()
-    addArtToArtist()
     addMediums()
+    addArt()
+    // addArtToArtist()
 }
 
 
@@ -121,6 +122,19 @@ function addMediums() {
     })
 }
 
+function addArt() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__art__button')) {
+            const artTitle = document.querySelector('.add__artTitle').value
+            const artImage = document.querySelector('.add__artImage').value
+            api.postRequest('http://localhost:8080/art/add/${event.target.id}', {
+                artTitle: artTitle,
+                artImage: artImage
+            }, (art) => getAppContext().innerHTML = Art(art))
+        }
+    })
+}
+
 function addDescriptionToArt() {
 	events.on(getAppContext(), 'click', () => {
 		if (event.target.classList.contains('add__description__button')) {
@@ -133,20 +147,20 @@ function addDescriptionToArt() {
 }
 
 
-function addArtToArtist() {
-	events.on(getAppContext(), 'click', () => {
-		if (event.target.classList.contains('add__art__button')) {
-            const artTitle = document.querySelector('.add__artTitle').value
-            const artImage = document.querySelector('.add__artImage').value
-			api.postRequest(`http://localhost:8080/artists/art/add/${event.target.id}`, {
-                artTitle: artTitle,
-                artImage: artImage
-			}, (art) => {
-				getAppContext().innerHTML = Art(art)
-			})
-		}
-	})
-}
+// function addArtToArtist() {
+// 	events.on(getAppContext(), 'click', () => {
+// 		if (event.target.classList.contains('add__art__button')) {
+//             const artTitle = document.querySelector('.add__artTitle').value
+//             const artImage = document.querySelector('.add__artImage').value
+// 			api.postRequest(`http://localhost:8080/artists/art/add/${event.target.id}`, {
+//                 artTitle: artTitle,
+//                 artImage: artImage
+// 			}, (art) => {
+// 				getAppContext().innerHTML = Art(art)
+// 			})
+// 		}
+// 	})
+// }
 
 
 function getAppContext() {
