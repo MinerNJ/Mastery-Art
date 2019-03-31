@@ -204,7 +204,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Artist;
 
 function Artist(artist) {
-  return "\n    <div class=\"artist__container\">\n        <h3 class=\"artist__artistName title\">Artist: ".concat(artist.artistName, "</h3>\n        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n    </div>\n        ");
+  return "\n    <div class=\"artist__container\">\n        <h3 class=\"artist__artistName title\">Artist: ".concat(artist.artistName, "</h3>\n        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n    </div>\n\n    <section class=\"add__artist\">\n            <input type=\"text\" class=\"add__artistName\" placeholder=\"Artist Name\">\n            <input type=\"text\" class=\"add__artistImage\" placeholder=\"Image URL\">\n            <button class=\"add__artist__button\">Add Artist</button>\n        </section>\n        ");
 }
 },{}],"../JS/components/Mediums.js":[function(require,module,exports) {
 "use strict";
@@ -310,6 +310,7 @@ function nav() {
   viewSingleMedium();
   viewSingleArtPiece();
   addDescriptionToArt();
+  addArtists();
 }
 
 function main() {
@@ -392,6 +393,22 @@ function addDescriptionToArt() {
   });
 }
 
+function addArtists() {
+  _eventsActions.default.on(getAppContext(), 'click', function () {
+    if (event.target.classList.contains('add__artist__button')) {
+      var artistName = document.querySelector('.add__artistName').value;
+      var artistImage = document.querySelector('.add__artistImage').value;
+
+      _apiActions.default.postRequest('http://localhost:8080/artists/add/${event.target.id}', {
+        artistName: artistName,
+        artistImage: artistImage
+      }, function (artists) {
+        return getAppContext().innerHTML = (0, _Artists.default)(artists);
+      });
+    }
+  });
+}
+
 function getAppContext() {
   return document.querySelector('#app');
 }
@@ -427,7 +444,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50897" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54533" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

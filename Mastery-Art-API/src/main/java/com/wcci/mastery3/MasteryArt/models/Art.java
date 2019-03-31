@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Art {
@@ -21,6 +24,9 @@ public class Art {
 	@ElementCollection
 	@CollectionTable
 	private Collection<Description> descriptions;
+	@ManyToMany(mappedBy="art")
+	@JsonIgnore
+	private Collection<Artist> artists;
 	
 	public Long getId() {
 		return id;
@@ -38,6 +44,10 @@ public class Art {
 	
 	public void addDescription(Description descriptionToAdd) {
 		descriptions.add(descriptionToAdd);
+	}
+	
+	public Collection<Artist> getArtists() {
+		return artists;
 	}
 	
 	public Art() {}
