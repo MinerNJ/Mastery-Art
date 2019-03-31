@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Artist {
 	@Id	
@@ -44,6 +46,9 @@ public class Artist {
 		this.artistName = artistName;
 		this.artistImage = artistImage;
 		this.art = new ArrayList<Art>();
+	}
+	public void addArtToArtist(Art artToAdd) {
+		art.add(artToAdd);
 	}
 	
 	

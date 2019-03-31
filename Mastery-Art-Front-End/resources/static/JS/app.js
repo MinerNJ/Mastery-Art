@@ -23,6 +23,8 @@ function nav() {
     viewSingleArtPiece()
     addDescriptionToArt()
     addArtists()
+    addArtToArtist()
+    addMediums()
 }
 
 
@@ -95,6 +97,29 @@ function viewSingleArtPiece() {
     })
 }
 
+function addArtists() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__artist__button')) {
+            const artistName = document.querySelector('.add__artistName').value
+            const artistImage = document.querySelector('.add__artistImage').value
+            api.postRequest('http://localhost:8080/artists/add/${event.target.id}', {
+                artistName: artistName,
+                artistImage: artistImage
+            }, (artists) => getAppContext().innerHTML = Artists(artists))
+        }
+    })
+}
+
+function addMediums() {
+    events.on(getAppContext(), 'click', () => {
+        if (event.target.classList.contains('add__medium__button')) {
+            const mediumName = document.querySelector('.add__mediumName').value
+            api.postRequest('http://localhost:8080/mediums/add/${event.target.id}', {
+                mediumName: mediumName,
+            }, (mediums) => getAppContext().innerHTML = Mediums(mediums))
+        }
+    })
+}
 
 function addDescriptionToArt() {
 	events.on(getAppContext(), 'click', () => {
@@ -107,15 +132,18 @@ function addDescriptionToArt() {
 	})
 }
 
-function addArtists() {
+
+function addArtToArtist() {
 	events.on(getAppContext(), 'click', () => {
-		if (event.target.classList.contains('add__artist__button')) {
-			const artistName = document.querySelector('.add__artistName').value
-			const artistImage = document.querySelector('.add__artistImage').value
-			api.postRequest('http://localhost:8080/artists/add/${event.target.id}', {
-				artistName: artistName,
-				artistImage: artistImage
-			}, (artists) => getAppContext().innerHTML = Artists(artists))
+		if (event.target.classList.contains('add__art__button')) {
+            const artTitle = document.querySelector('.add__artTitle').value
+            const artImage = document.querySelector('.add__artImage').value
+			api.postRequest(`http://localhost:8080/artists/art/add/${event.target.id}`, {
+                artTitle: artTitle,
+                artImage: artImage
+			}, (art) => {
+				getAppContext().innerHTML = Art(art)
+			})
 		}
 	})
 }

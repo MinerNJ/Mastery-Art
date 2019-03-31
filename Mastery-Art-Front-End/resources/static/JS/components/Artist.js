@@ -1,3 +1,5 @@
+import Art from './Art'
+
 export default function Artist(artist) {
     return `
     <div class="artist__container">
@@ -5,10 +7,10 @@ export default function Artist(artist) {
         <img src="${artist.artistImage}" class="artist__image">
     </div>
 
-    <section class="add__artist">
-            <input type="text" class="add__artistName" placeholder="Artist Name">
-            <input type="text" class="add__artistImage" placeholder="Image URL">
-            <button class="add__artist__button">Add Artist</button>
-        </section>
+
+    <ul class="art">
+            <h3>Art</h3>
+            <li class="art">${Art(artist.art)}</li>
+        </ul>
         `
 }
