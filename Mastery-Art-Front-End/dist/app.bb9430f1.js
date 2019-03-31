@@ -206,7 +206,7 @@ exports.default = Art;
 function Art(art) {
   return "\n        <ul>\n            ".concat(art.map(function (art) {
     return "\n                    <li>\n                        <h3 class=\"art__singleArtPiece\" id=\"".concat(art.id, "\">").concat(art.artTitle, "</h3> \n                        <img src=\"").concat(art.artImage, "\" class=\"art__image\">                    \n                    </li>\n                    ");
-  }).join(''), "\n        </ul>\n\n        <section class=\"add__art\">\n            <input type=\"text\" class=\"add__artTitle\" placeholder=\"Art Title\">\n            <input type=\"text\" class=\"add__artImage\" placeholder=\"Image URL\">\n            <button class=\"add__art__button\">Add Art</button>\n        </section>\n        \n       ");
+  }).join(''), "\n        </ul>\n\n        <section class=\"add__art\">\n        <input type=\"text\" class=\"add__artTitle\" placeholder=\"Art Title\">\n        <input type=\"text\" class=\"add__artImage\" placeholder=\"Image URL\">\n        <button class=\"add__art__button\">Add Art</button>\n    </section>\n        \n       ");
 }
 },{}],"../JS/components/Artist.js":[function(require,module,exports) {
 "use strict";
@@ -221,7 +221,7 @@ var _Art = _interopRequireDefault(require("./Art"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Artist(artist) {
-  return "\n    <div class=\"artist__container\">\n        <h3 class=\"artist__artistName title\">Artist: ".concat(artist.artistName, "</h3>\n        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n    </div>\n\n\n    <ul class=\"art\">\n            <h3>Art</h3>\n            <li class=\"art\">").concat((0, _Art.default)(artist.art), "</li>\n        </ul>\n        ");
+  return "\n    <div class=\"artist__container\">\n        <h3 class=\"artist__artistName title\">Artist: ".concat(artist.artistName, "</h3>\n        <img src=\"").concat(artist.artistImage, "\" class=\"artist__image\">\n    </div>\n\n\n    <ul class=\"art\">\n            <h3>Art</h3>\n            <li class=\"art\">").concat((0, _Art.default)(artist.art), "</li>\n        </ul>\n\n        ");
 }
 },{"./Art":"../JS/components/Art.js"}],"../JS/components/Mediums.js":[function(require,module,exports) {
 "use strict";
@@ -494,7 +494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60198" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63257" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

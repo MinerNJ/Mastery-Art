@@ -12,10 +12,10 @@ export default function Art(art) {
         </ul>
 
         <section class="add__art">
-            <input type="text" class="add__artTitle" placeholder="Art Title">
-            <input type="text" class="add__artImage" placeholder="Image URL">
-            <button class="add__art__button">Add Art</button>
-        </section>
+        <input type="text" class="add__artTitle" placeholder="Art Title">
+        <input type="text" class="add__artImage" placeholder="Image URL">
+        <button class="add__art__button">Add Art</button>
+    </section>
         
        `
 }

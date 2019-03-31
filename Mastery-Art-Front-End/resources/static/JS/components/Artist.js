@@ -12,5 +12,6 @@ export default function Artist(artist) {
             <h3>Art</h3>
             <li class="art">${Art(artist.art)}</li>
         </ul>
+
         `
 }
