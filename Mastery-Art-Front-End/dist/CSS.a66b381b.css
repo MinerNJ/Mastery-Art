@@ -3,14 +3,37 @@
     margin: 0;
     padding: 0;
   }
-
+  
   ul{
     list-style: none;
   }
+img{
+  border: 1px solid white;
+  display: grid;
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	grid-template-columns: 400px;
+	grid-template-rows: 400px;
+	background-color: white;
+	margin:1rem;
+	height: 400px;
+	width: 400px;
+}
 
 .main__container{
     display: flex;
 }
+button{
+  padding: 5px 32px;
+  border-radius: 12px;
+}
+
+input{
+  padding: 7px 32px;
+  border-radius: 7px;
+}
+
+
+
 
 
 /*# sourceMappingURL=/CSS.a66b381b.css.map */

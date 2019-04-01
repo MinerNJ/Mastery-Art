@@ -1,0 +1,95 @@
+html{
+	scroll-behavior: smooth;
+}
+
+/* Navbar goes below here: */
+.navbar{
+	position: fixed;
+	min-height: 8vh;
+	background-color: #fff952;
+	font-family: 'Abril+Fatface', sans-serif;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+	height: 70px;
+	z-index: 1;	
+}
+.nav-links{
+	display: flex;
+	justify-content: right;
+	list-style: none;
+	margin-right: 12%;
+}
+.logo{
+	flex: 1 1 auto;
+	margin-left: 7%;
+	letter-spacing: 1px;
+	font-weight: bold;
+	font-size: 30px; 
+}
+
+a{
+	margin: 10px;
+	color: black;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+a:hover{
+color: white;
+}
+
+/* Banner Area / Home page goes below here:*/
+
+.banner-area{
+	display: block;
+    position: fixed;
+    padding-top: 5px;
+	background-image: url(/logo.b9b960d1.png);
+	width: 500px;
+	height: 500px;
+}
+
+
+/* Body Sections goes below here:- */
+
+.Artists-area, .Mediums-area, .Art-area {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+	flex-direction: row;
+	width: 100%;
+} 
+
+.text-part{
+    padding-left: 40rem;
+	width: 65%;
+	height: 80%;
+}
+
+h1{
+    font-size: 50px;
+    padding-bottom: 0.5rem;
+}
+
+
+
+/* footer Section goes below here: */
+
+/* .footer{   
+    font-size: 1.2rem;
+    color: black;
+    font-weight: bold;
+    text-align: center;  
+    width: 100%;
+    background-color: #fff952;
+    height: 80px; 
+} */
+
+/*# sourceMappingURL=/style.db8eaab5.css.map */

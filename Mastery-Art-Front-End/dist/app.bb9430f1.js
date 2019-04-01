@@ -180,7 +180,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Nav;
 
 function Nav() {
-  return "\n    \n    <div>\n        <h1>Local Art</h1>\n    </div>\n    <nav>\n        <button class=\"view__all-artists button\">Artists</button>\n        <button class=\"view__all-mediums button\">Mediums</button>\n        <button class=\"view__all-art button\">Art</button>\n    </nav>\n    ";
+  return "\n    \n    <div id=\"logo\">\n        <h1>Local Art</h1>\n    </div>\n\n    <nav>\n        <button class=\"view__all-artists button\">Artists</button>\n        <button class=\"view__all-mediums button\">Mediums</button>\n        <button class=\"view__all-art button\">Art</button>\n    </nav>\n    ";
 }
 },{}],"../JS/components/Artists.js":[function(require,module,exports) {
 "use strict";
@@ -466,7 +466,7 @@ function getAppContext() {
 function getNavContext() {
   return document.querySelector("#nav");
 }
-},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Nav":"../JS/components/Nav.js","./components/Artists":"../JS/components/Artists.js","./components/Artist":"../JS/components/Artist.js","./components/Mediums":"../JS/components/Mediums.js","./components/Medium":"../JS/components/Medium.js","./components/Art":"../JS/components/Art.js","./components/ArtPiece":"../JS/components/ArtPiece.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./utils/events/events-actions":"../JS/utils/events/events-actions.js","./utils/api/api-actions":"../JS/utils/api/api-actions.js","./components/Nav":"../JS/components/Nav.js","./components/Artists":"../JS/components/Artists.js","./components/Artist":"../JS/components/Artist.js","./components/Mediums":"../JS/components/Mediums.js","./components/Medium":"../JS/components/Medium.js","./components/Art":"../JS/components/Art.js","./components/ArtPiece":"../JS/components/ArtPiece.js"}],"../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -494,7 +494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63257" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55089" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -669,5 +669,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../JS/app.js"], null)
+},{}]},{},["../../../../../../../AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","../JS/app.js"], null)
 //# sourceMappingURL=/app.bb9430f1.js.map
